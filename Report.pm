@@ -97,6 +97,8 @@ sub _process_errors {
 			}
 		}
 	}
+
+	return 0;
 }
 
 sub _process_list {
