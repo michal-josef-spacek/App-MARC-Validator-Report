@@ -2,12 +2,18 @@ NAME
     marc-validator-report - Tool to process validation report.
 
 SYNOPSIS
-     marc-validator-report [-h] [-l] [-p plugin] [-v] [--version] report.json
+     marc-validator-report [-e error] [-h] [-l] [-p plugin] [-v] [--version] report.json
 
 DESCRIPTION
     Tool to process validation report.
 
 ARGUMENTS
+    *       "-e error"
+
+            Use error defined by full error string.
+
+            Default is 'all'.
+
     *       "-h"
 
             Print help.

@@ -28,7 +28,7 @@ marc-validator-report - Tool to process validation report.
 
 =head1 SYNOPSIS
 
- marc-validator-report [-h] [-l] [-p plugin] [-v] [--version] report.json
+ marc-validator-report [-e error] [-h] [-l] [-p plugin] [-v] [--version] report.json
 
 =head1 DESCRIPTION
 
@@ -37,6 +37,12 @@ Tool to process validation report.
 =head1 ARGUMENTS
 
 =over 8
+
+=item * C<-e error>
+
+Use error defined by full error string.
+
+Default is 'all'.
 
 =item * C<-h>
 
