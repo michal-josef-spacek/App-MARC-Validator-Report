@@ -31,12 +31,13 @@ sub run {
 
 	# Process arguments.
 	$self->{'_opts'} = {
+		'e' => 'all',
 		'h' => 0,
 		'l' => 0,
 		'p' => 'all',
 		'v' => 0,
 	};
-	if (! getopts('hlp:v', $self->{'_opts'})
+	if (! getopts('e:hlp:v', $self->{'_opts'})
 		|| $self->{'_opts'}->{'h'}
 		|| @ARGV < 1) {
 
@@ -53,10 +54,49 @@ sub run {
 	if ($self->{'_opts'}->{'l'}) {
 		$exit_code = $self->_process_list;
 	} else {
-		err "Not supported\n";
+		$exit_code = $self->_process_errors;
 	}
 
 	return $exit_code;
+}
+
+sub _process_errors {
+	my $self = shift;
+
+	foreach my $plugin (keys %{$self->{'_list'}}) {
+		if ($self->{'_opts'}->{'p'} eq 'all' || $self->{'_opts'}->{'p'} eq $plugin) {
+			if (keys %{$self->{'_list'}->{$plugin}} == 0) {
+				next;
+			}
+			print "Plugin '$plugin':\n";
+			foreach my $error (sort keys %{$self->{'_list'}->{$plugin}}) {
+				if ($self->{'_opts'}->{'e'} eq 'all' || $self->{'_opts'}->{'e'} eq $error) {
+					print "- $error:\n";
+					foreach my $id (@{$self->{'_list'}->{$plugin}->{$error}}) {
+						my @err = @{$self->{'_report'}->{$plugin}->{'checks'}->{'not_valid'}->{$id}};
+						my $struct_hr = {};
+						foreach my $err_hr (@err) {
+							if ($err_hr->{'error'} eq $error) {
+								$struct_hr = $err_hr->{'params'};
+							}
+						}
+						print "-- $id";
+						my $i = 0;
+						foreach my $param_key (keys %{$struct_hr}) {
+							if ($i == 0) {
+								print ': ';
+							} else {
+								print ', ';
+							}
+							print "$param_key: '".$struct_hr->{$param_key}."'";
+							$i++;
+						}
+						print "\n";
+					}
+				}
+			}
+		}
+	}
 }
 
 sub _process_list {
@@ -84,26 +124,26 @@ sub _process_report {
 
 	# JSON output.
 	my $j = Cpanel::JSON::XS->new;
-	my $report_hr = $j->decode($report);
+	$self->{'_report'} = $j->decode($report);
 
 	$self->{'_list'} = {};
-	foreach my $plugin (keys %{$report_hr}) {
-		if (! exists $report_hr->{$plugin}->{'checks'}) {
-			err "Doesn't exist key '".$report_hr->{$plugin}->{'checks'}." in plugin $plugin.";
+	foreach my $plugin (keys %{$self->{'_report'}}) {
+		if (! exists $self->{'_report'}->{$plugin}->{'checks'}) {
+			err "Doesn't exist key '".$self->{'_report'}->{$plugin}->{'checks'}." in plugin $plugin.";
 		}
-		if (! exists $report_hr->{$plugin}->{'checks'}->{'not_valid'}) {
-			err "Doesn't exist key '".$report_hr->{$plugin}->{'checks'}->{'not_valid'}." in plugin $plugin.";
+		if (! exists $self->{'_report'}->{$plugin}->{'checks'}->{'not_valid'}) {
+			err "Doesn't exist key '".$self->{'_report'}->{$plugin}->{'checks'}->{'not_valid'}." in plugin $plugin.";
 		}
 		if (! exists $self->{'_list'}->{$plugin}) {
 			$self->{'_list'}->{$plugin} = {};
 		}
-		my $not_valid_hr = $report_hr->{$plugin}->{'checks'}->{'not_valid'};
+		my $not_valid_hr = $self->{'_report'}->{$plugin}->{'checks'}->{'not_valid'};
 		foreach my $record_id (keys %{$not_valid_hr}) {
 			foreach my $error_hr (@{$not_valid_hr->{$record_id}}) {
 				if (! exists $self->{'_list'}->{$plugin}->{$error_hr->{'error'}}) {
-					$self->{'_list'}->{$plugin}->{$error_hr->{'error'}} = 1;
+					$self->{'_list'}->{$plugin}->{$error_hr->{'error'}} = [$record_id];
 				} else {
-					$self->{'_list'}->{$plugin}->{$error_hr->{'error'}}++;
+					push @{$self->{'_list'}->{$plugin}->{$error_hr->{'error'}}}, $record_id;
 				}
 			}
 		}
