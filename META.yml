@@ -1,5 +1,5 @@
 ---
-abstract: 'MARC validator tool.'
+abstract: 'Tool to process MARC validation report.'
 author:
   - 'Michal Josef Spacek <skim@cpan.org>'
 build_requires:

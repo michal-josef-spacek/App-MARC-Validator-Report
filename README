@@ -1,5 +1,5 @@
 NAME
-    marc-validator-report - Tool to process validation report.
+    marc-validator-report - Tool to process MARC validation report.
 
 SYNOPSIS
      marc-validator-report [-e error] [-h] [-l] [-p plugin] [-v] [--version] report.json
