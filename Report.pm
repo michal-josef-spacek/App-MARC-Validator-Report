@@ -71,7 +71,7 @@ sub _process_errors {
 			print "Plugin '$plugin':\n";
 			foreach my $error (sort keys %{$self->{'_list'}->{$plugin}}) {
 				if ($self->{'_opts'}->{'e'} eq 'all' || $self->{'_opts'}->{'e'} eq $error) {
-					print "- $error:\n";
+					print "- $error\n";
 					foreach my $id (@{$self->{'_list'}->{$plugin}->{$error}}) {
 						my @err = @{$self->{'_report'}->{$plugin}->{'checks'}->{'not_valid'}->{$id}};
 						my $struct_hr = {};
