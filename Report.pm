@@ -9,7 +9,7 @@ use Error::Pure qw(err);
 use Getopt::Std;
 use Perl6::Slurp qw(slurp);
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 # Constructor.
 sub new {

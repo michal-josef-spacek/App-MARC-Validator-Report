@@ -5,7 +5,7 @@ use warnings;
 
 use App::MARC::Validator::Report;
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 # Run.
 exit App::MARC::Validator::Report->new->run;
@@ -94,6 +94,6 @@ BSD 2-Clause License
 
 =head1 VERSION
 
-0.01
+0.02
 
 =cut
