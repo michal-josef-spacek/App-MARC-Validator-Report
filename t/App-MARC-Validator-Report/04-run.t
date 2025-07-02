@@ -4,17 +4,38 @@ use warnings;
 use App::MARC::Validator::Report;
 use English;
 use File::Object;
-use File::Spec::Functions qw(abs2rel);
-use Test::More 'tests' => 5;
+use File::Spec::Functions qw(abs2rel catfile);
+use Test::More 'tests' => 6;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn 0.31;
+
+# Data dir.
+my $data_dir = File::Object->new->up->dir('data');
+
+# Test.
+@ARGV = (
+	'-l',
+	$data_dir->file('report1.json')->s,
+);
+my $right_ret = <<'END';
+Plugin 'field_260':
+- Bad year in parenthesis in MARC field 260 $c.
+END
+stdout_is(
+	sub {
+		App::MARC::Validator::Report->new->run;
+		return;
+	},
+	$right_ret,
+	'List unique error messages (-l).',
+);
 
 # Test.
 @ARGV = (
 	'-h',
 );
-my $right_ret = help();
+$right_ret = help();
 stderr_is(
 	sub {
 		App::MARC::Validator::Report->new->run;
