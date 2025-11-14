@@ -1,4 +1,5 @@
 0.03
+ - Add test for exit code in -l processing.
  - Add test for report output.
  - Add tests for errors in input structure.
  - Fix error messages.
