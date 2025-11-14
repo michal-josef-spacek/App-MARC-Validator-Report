@@ -130,11 +130,11 @@ sub _process_report {
 	$self->{'_list'} = {};
 	foreach my $plugin (keys %{$self->{'_report'}}) {
 		if (! exists $self->{'_report'}->{$plugin}->{'checks'}) {
-			print STDERR "Doesn't exist key '".$self->{'_report'}->{$plugin}->{'checks'}." in plugin $plugin.";
+			print STDERR "Doesn't exist key 'checks' in plugin $plugin.";
 			return 1;
 		}
 		if (! exists $self->{'_report'}->{$plugin}->{'checks'}->{'not_valid'}) {
-			print STDERR "Doesn't exist key '".$self->{'_report'}->{$plugin}->{'checks'}->{'not_valid'}." in plugin $plugin.";
+			print STDERR "Doesn't exist key 'checks'->'not_valid' in plugin $plugin.";
 			return 1;
 		}
 		if (! exists $self->{'_list'}->{$plugin}) {
