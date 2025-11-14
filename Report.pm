@@ -63,7 +63,7 @@ sub run {
 sub _process_errors {
 	my $self = shift;
 
-	foreach my $plugin (keys %{$self->{'_list'}}) {
+	foreach my $plugin (sort keys %{$self->{'_list'}}) {
 		if ($self->{'_opts'}->{'p'} eq 'all' || $self->{'_opts'}->{'p'} eq $plugin) {
 			if (keys %{$self->{'_list'}->{$plugin}} == 0) {
 				next;
@@ -104,7 +104,7 @@ sub _process_errors {
 sub _process_list {
 	my $self = shift;
 
-	foreach my $plugin (keys %{$self->{'_list'}}) {
+	foreach my $plugin (sort keys %{$self->{'_list'}}) {
 		if ($self->{'_opts'}->{'p'} eq 'all' || $self->{'_opts'}->{'p'} eq $plugin) {
 			if (keys %{$self->{'_list'}->{$plugin}} == 0) {
 				next;
