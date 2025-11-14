@@ -8,7 +8,7 @@ use Cpanel::JSON::XS;
 use Getopt::Std;
 use Perl6::Slurp qw(slurp);
 
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 
 # Constructor.
 sub new {
