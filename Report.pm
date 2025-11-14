@@ -82,7 +82,7 @@ sub _process_errors {
 						}
 						print "-- $id";
 						my $i = 0;
-						foreach my $param_key (keys %{$struct_hr}) {
+						foreach my $param_key (sort keys %{$struct_hr}) {
 							if ($i == 0) {
 								print ': ';
 							} else {
