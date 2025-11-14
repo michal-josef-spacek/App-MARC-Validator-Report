@@ -5,7 +5,6 @@ use warnings;
 
 use Class::Utils qw(set_params);
 use Cpanel::JSON::XS;
-use Error::Pure qw(err);
 use Getopt::Std;
 use Perl6::Slurp qw(slurp);
 
@@ -131,10 +130,12 @@ sub _process_report {
 	$self->{'_list'} = {};
 	foreach my $plugin (keys %{$self->{'_report'}}) {
 		if (! exists $self->{'_report'}->{$plugin}->{'checks'}) {
-			err "Doesn't exist key '".$self->{'_report'}->{$plugin}->{'checks'}." in plugin $plugin.";
+			print STDERR "Doesn't exist key '".$self->{'_report'}->{$plugin}->{'checks'}." in plugin $plugin.";
+			return 1;
 		}
 		if (! exists $self->{'_report'}->{$plugin}->{'checks'}->{'not_valid'}) {
-			err "Doesn't exist key '".$self->{'_report'}->{$plugin}->{'checks'}->{'not_valid'}." in plugin $plugin.";
+			print STDERR "Doesn't exist key '".$self->{'_report'}->{$plugin}->{'checks'}->{'not_valid'}." in plugin $plugin.";
+			return 1;
 		}
 		if (! exists $self->{'_list'}->{$plugin}) {
 			$self->{'_list'}->{$plugin} = {};

@@ -21,7 +21,6 @@ readme_from 'bin/marc-validator-report';
 recursive_author_tests('xt');
 requires 'Class::Utils' => 0;
 requires 'Cpanel::JSON::XS' => 0;
-requires 'Error::Pure' => 0;
 requires 'Getopt::Std' => 0;
 requires 'Perl6::Slurp' => 0;
 resources 'bugtracker' => 'https://github.com/michal-josef-spacek/App-MARC-Validator-Report/issues',
