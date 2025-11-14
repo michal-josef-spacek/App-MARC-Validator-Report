@@ -5,7 +5,7 @@ use warnings;
 
 use App::MARC::Validator::Report;
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 # Run.
 exit App::MARC::Validator::Report->new->run;
@@ -101,6 +101,6 @@ the Czech Republic (DKRVO 2024–2028), Area 11: Linked Open Data.
 
 =head1 VERSION
 
-0.02
+0.03
 
 =cut
