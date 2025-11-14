@@ -76,6 +76,16 @@ Report file in JSON format.
 
  marc-validator-report __report.json__
 
+=head1 SEE ALSO
+
+=over
+
+=item L<marc-validator>
+
+Tool to validate records in MARC file.
+
+=back
+
 =head1 REPOSITORY
 
 L<https://github.com/michal-josef-spacek/App-MARC-Validator-Report>

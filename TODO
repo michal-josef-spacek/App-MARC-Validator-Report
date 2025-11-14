@@ -2,7 +2,6 @@ TODO
 ====
 1. Tests.
 4. Add doc.
-5. Add link to App::MARC::Validator.
 6.
 
 Applied
@@ -12,3 +11,6 @@ OK [20250618] skim
 
 3. Sort ids.
 OK [20250618] skim
+
+5. Add link to App::MARC::Validator.
+OK [20251114] skim
