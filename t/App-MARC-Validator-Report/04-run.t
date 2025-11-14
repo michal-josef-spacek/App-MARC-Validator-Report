@@ -5,7 +5,7 @@ use App::MARC::Validator::Report;
 use English;
 use File::Object;
 use File::Spec::Functions qw(abs2rel catfile);
-use Test::More 'tests' => 6;
+use Test::More 'tests' => 10;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn 0.31;
@@ -30,6 +30,38 @@ stdout_is(
 	$right_ret,
 	'List unique error messages (-l).',
 );
+
+# Test.
+@ARGV = (
+	$data_dir->file('bad_report1.json')->s,
+);
+$right_ret = "Doesn't exist key 'checks' in plugin field_008.";
+my $exit_code = 0;
+stderr_is(
+	sub {
+		$exit_code = App::MARC::Validator::Report->new->run;
+		return;
+	},
+	$right_ret,
+	"Process bad report file (not 'checks' structure).",
+);
+is($exit_code, 1, 'Exit code (1).');
+
+# Test.
+@ARGV = (
+	$data_dir->file('bad_report2.json')->s,
+);
+$right_ret = "Doesn't exist key 'checks'->'not_valid' in plugin field_008.";
+$exit_code = 0;
+stderr_is(
+	sub {
+		$exit_code = App::MARC::Validator::Report->new->run;
+		return;
+	},
+	$right_ret,
+	"Process bad report file (not 'checks'->'not_valid' structure).",
+);
+is($exit_code, 1, 'Exit code (1).');
 
 # Test.
 @ARGV = (
