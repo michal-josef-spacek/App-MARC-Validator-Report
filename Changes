@@ -1,4 +1,5 @@
 0.03
+ - Add test for report output.
  - Add tests for errors in input structure.
  - Fix error messages.
  - Rewrite err usage to STDERR and exit 1.

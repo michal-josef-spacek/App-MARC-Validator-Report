@@ -5,7 +5,7 @@ use App::MARC::Validator::Report;
 use English;
 use File::Object;
 use File::Spec::Functions qw(abs2rel catfile);
-use Test::More 'tests' => 10;
+use Test::More 'tests' => 12;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn 0.31;
@@ -33,10 +33,30 @@ stdout_is(
 
 # Test.
 @ARGV = (
+	$data_dir->file('report1.json')->s,
+);
+$right_ret = <<'END';
+Plugin 'field_260':
+- Bad year in parenthesis in MARC field 260 $c.
+-- cnb001926336: Value: '(1933)'
+END
+my $exit_code = 1;
+stdout_is(
+	sub {
+		$exit_code = App::MARC::Validator::Report->new->run;
+		return;
+	},
+	$right_ret,
+	'Create report.',
+);
+is($exit_code, 0, 'Exit code (0).');
+
+# Test.
+@ARGV = (
 	$data_dir->file('bad_report1.json')->s,
 );
 $right_ret = "Doesn't exist key 'checks' in plugin field_008.";
-my $exit_code = 0;
+$exit_code = 0;
 stderr_is(
 	sub {
 		$exit_code = App::MARC::Validator::Report->new->run;
