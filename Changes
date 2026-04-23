@@ -1,5 +1,6 @@
 0.04
  - Add missing -e option to tool help.
+ - Add test for -e option.
  - Fix report for plugin->record->multiple_errors.
  - Update copyright years.
 
