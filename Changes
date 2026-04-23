@@ -1,4 +1,5 @@
 0.04
+ - Fix report for plugin->record->multiple_errors.
  - Update copyright years.
 
 0.03 2025-11-14T17:22:34+01:00
