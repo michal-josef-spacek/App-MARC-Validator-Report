@@ -9,7 +9,7 @@ use Getopt::Std;
 use List::Util 1.33 qw(none);
 use Perl6::Slurp qw(slurp);
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 # Constructor.
 sub new {
