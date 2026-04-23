@@ -159,7 +159,8 @@ sub help {
 		$script =~ s/\\/\//msg;
 	}
 	my $help = <<"END";
-Usage: $script [-h] [-l] [-p plugin] [-v] [--version] report.json
+Usage: $script [-e error] [-h] [-l] [-p plugin] [-v] [--version] report.json
+	-e error	Use error defined by full error string (default is all).
 	-h		Print help.
 	-l		List unique errors.
 	-p		Use plugin (default all).

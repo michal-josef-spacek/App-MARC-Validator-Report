@@ -163,7 +163,8 @@ sub _process_report {
 sub _usage {
 	my $self = shift;
 
-	print STDERR "Usage: $0 [-h] [-l] [-p plugin] [-v] [--version] report.json\n";
+	print STDERR "Usage: $0 [-e error] [-h] [-l] [-p plugin] [-v] [--version] report.json\n";
+	print STDERR "\t-e error\tUse error defined by full error string (default is all).\n";
 	print STDERR "\t-h\t\tPrint help.\n";
 	print STDERR "\t-l\t\tList unique errors.\n";
 	print STDERR "\t-p\t\tUse plugin (default all).\n";
